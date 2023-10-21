@@ -1,0 +1,40 @@
+{{define "title"}}Create a New Snippet{{end}}
+{{define "main"}}
+<form action='/post/create' method='POST'>
+    <div>
+        <label>Title:</label>
+        <!-- Use the `with` action to render the value of .Form.FieldErrors.title
+if it is not empty. -->
+        {{with .Form.FieldErrors.title}}
+        <label class='error'>{{.}}</label>
+        {{end}}
+        <!-- Re-populate the title data by setting the `value` attribute. -->
+        <input type='text' name='title' value='{{.Form.Title}}'>
+    </div>
+    <div>
+        <label>Content:</label>
+        <!-- Likewise render the value of .Form.FieldErrors.content if it is not
+empty. -->
+        {{with .Form.FieldErrors.content}}
+        <label class='error'>{{.}}</label>
+        {{end}}
+        <!-- Re-populate the content data as the inner HTML of the textarea. -->
+        <textarea name='content'>{{.Form.Content}}</textarea>
+    </div>
+    <div>
+        {{with .Form.FieldErrors.category}}
+        <label class='error'>{{.}}</label>
+        {{end}}
+        <label>Select a category:</label>
+        <input type='checkbox' name='category' value='Counter-Strike 2' checked> Counter-Strike 2
+        <input type='checkbox' name='category' value='Dota 2'> Dota 2
+        <input type='checkbox' name='category' value='Valorant'> Valorant
+        <input type='checkbox' name='category' value='Overwatch 2'> Overwatch 2
+        <input type='checkbox' name='category' value='Other'> Other
+    </div>
+    <div>
+        
+        <input type='submit' value='Publish snippet'>
+    </div>
+</form>
+{{end}}

@@ -1,0 +1,33 @@
+{{define "title"}}Home{{end}}
+{{define "main"}}
+<h2>Latest Snippets</h2>
+<form method="POST" action="/">
+    <!-- <label for="category">Select Category:</label> -->
+    <label>Select a category:</label>
+    <input type='checkbox' name='category' value='Counter-Strike 2'> Counter-Strike 2
+    <input type='checkbox' name='category' value='Dota 2'> Dota 2
+    <input type='checkbox' name='category' value='Valorant'> Valorant
+    <input type='checkbox' name='category' value='Overwatch 2'> Overwatch 2
+    <input type='checkbox' name='category' value='Other'> Other
+    <button type="submit" >Filter</button>
+</form>
+{{if .Posts}}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Created</th>
+        <th>ID</th>
+    </tr>
+    {{range .Posts}}
+    
+    <tr>
+        <td><a href='/post/view?id={{.ID}}' title="{{.Content}}">{{.Title}}</a></td>
+        <td>{{humanDate .Created}}</td>
+        <td>#{{.ID}}</td>
+    </tr>
+    {{end}}
+</table>
+{{else}}
+<p>There's nothing to see here... yet!</p>
+{{end}}
+{{end}}

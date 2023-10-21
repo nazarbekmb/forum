@@ -1,0 +1,49 @@
+{{define "title"}}Post #{{.Post.ID}}{{end}}
+{{define "main"}}
+{{with .Post}}
+<div class='snippet'>
+    <div class='metadata'>
+        <strong>{{.Title}}</strong>
+        <!-- <span>#{{.ID}}</span> -->
+        <span>Category: {{range $index, $category := .Categories}}{{if $index}}, {{end}}{{$category}}{{end}}</span>
+    </div>
+    <pre><code>{{.Content}}</code></pre>
+    <div class='metadata'>
+        <time>Created: {{humanDate .Created}}</time>
+        <span>Author: {{.Author}}</span>
+        <form action="/post/view?id={{.ID}}" method="POST">
+        <!--
+            <button name="Like" value="1" class="likeButton">Like</button>
+            <button name="Like" value="-1" class="dislikeButton">Dislike</button>
+        -->
+            <span class="reactionConteiner">
+                <button name="Like" value="1" class="likeButton">
+                    <i class="reactionButton like"></i>
+                    Likes: {{.Likes}}
+                </button>
+
+                <button name="Like" value="-1" class="dislikeButton">
+                    <i class="reactionButton dislike"></i>
+                    Dislikes: {{.Dislikes}}
+                </button>
+            </span>>
+        </form>
+
+        <form action="/post/view?id={{.ID}}" method="POST">
+            {{end}}
+            {{with .Form.FieldErrors.comment}}
+            <label class='error'>{{.}}</label>
+            {{end}}
+            <textarea name="comment" cols="30" rows="10">{{.Form.Comment}}</textarea>
+            <input type='submit' value='comment'>
+        </form>
+    </div>
+    {{range .Comments}}
+    <div class="comment">
+        <p>Author: {{.Username}}</p>
+        <p>Text: {{.Text}}</p>
+        <p>Created At: {{humanDate .CreatedAt}}</p>
+    </div>
+    {{end}}
+</div>
+{{end}}
